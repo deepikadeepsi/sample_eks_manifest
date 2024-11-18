@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginx-canary
+  namespace: argocd
+spec:
+  project: default
+  source:
+    path: ./ # Path in the repository where the manifests are located
+    repoURL: 'https://github.com/deepikadeepsi/sample_eks_manifest.git' 
+    targetRevision: main # Replace with the branch you are using
+  destination:
+    namespace: canary
+    server: 'https://kubernetes.default.svc'
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        maxDuration: 3m0s
+        factor: 2
