@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    path: ./ # Path in the repository where the manifests are located
+    path: ./canary/ 
     repoURL: 'https://github.com/deepikadeepsi/sample_eks_manifest.git' 
     targetRevision: main # Replace with the branch you are using
   destination:
